@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import TagList from "./TagList";
 
 const cStyle = {
   position: "relative",
@@ -16,12 +17,10 @@ const iStyle = {
 };
 
 function InputTag({ defaultTags, onAddTag, onDeleteTag, placeHolder }) {
-  const [tags, setTags] = useState([]);
-
-  onKeyUp = e => {
-    console.log(e.wich);
+  const onKeyUp = e => {
+    //console.log(e.key);
     // codice 188 per la virgola, 13 per invio
-    if (e.wich === 18 || e.wich === 13) {
+    if (e.key === "," || e.key === "Enter") {
       let input = e.target.value.trim().split(",");
       //esci se non ci sono tag
       if (input.length === 0 || input[0] === "") return;
@@ -30,13 +29,13 @@ function InputTag({ defaultTags, onAddTag, onDeleteTag, placeHolder }) {
     }
   };
 
-  onDeleteTag = tag => {
+  const _onDeleteTag = tag => {
     onDeleteTag(tag);
   };
 
   return (
     <div style={cStyle}>
-      <TagList tags={defaultTags} onDeleteTag={onDeleteTag} />
+      <TagList tags={defaultTags} onDeleteTag={_onDeleteTag} />
       <input
         style={iStyle}
         onKeyUp={e => onKeyUp(e)}
